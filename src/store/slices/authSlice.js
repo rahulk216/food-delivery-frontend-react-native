@@ -1,29 +1,50 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { loginService } from "../../services/authServices";
+import {
+  loginService,
+  getUserDetailsService,
+} from "../../services/authServices";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { setUser, getUser } from "../../utils/utility";
+import { validate } from "react-native-web/dist/cjs/exports/StyleSheet/validate";
 
 const initialState = {
   isLoading: false,
   accessToken: null,
+  userDetails: null,
   error: null,
 };
 
 export const login = createAsyncThunk("login", async (credentials) => {
   try {
+    let userDetails = null;
     const response = await loginService(credentials);
     await setUser({ accessToken: response.accessToken });
-    return response;
+    if (response) {
+      userDetails = await getUserDetailsService({
+        token: response.accessToken,
+      });
+    }
+    return { response, userDetails };
   } catch (error) {
     throw error;
   }
 });
 
 export const validateToken = createAsyncThunk("validatetoken", async () => {
-  const result = await AsyncStorage.getItem("accessToken");
-  console.log(result, "result");
-  return result;
+  const result = await getUser();
+  const userDetails =
+    result &&
+    (await getUserDetailsService({
+      token: result,
+    }));
+  return { result, userDetails };
 });
+
+// export const getUserDetails = createAsyncThunk("getuserdetails", async () => {
+//   const response = await getUserDetailsService({
+//     token: response.accessToken,
+//   });
+// });
 
 const loginSlice = createSlice({
   name: "login",
@@ -31,14 +52,25 @@ const loginSlice = createSlice({
   reducers: {
     logout: (state) => {
       state.error = null;
+      state.isLoading = false;
       state.accessToken = null;
       AsyncStorage.clear();
     },
   },
   extraReducers: (builder) => {
     builder
+      .addCase(validateToken.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
       .addCase(validateToken.fulfilled, (state, action) => {
-        state.accessToken = action.payload;
+        state.accessToken = action.payload.result;
+        state.userDetails = action.payload.userDetails;
+        state.isLoading = false;
+      })
+      .addCase(validateToken.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.error.message;
       })
       .addCase(login.pending, (state) => {
         state.isLoading = true;
@@ -47,7 +79,8 @@ const loginSlice = createSlice({
       .addCase(login.fulfilled, (state, action) => {
         state.isLoading = false;
         state.error = null;
-        state.accessToken = action.payload.accessToken;
+        state.accessToken = action.payload.response.accessToken;
+        state.userDetails = action.payload.userDetails;
       })
       .addCase(login.rejected, (state, action) => {
         state.isLoading = false;

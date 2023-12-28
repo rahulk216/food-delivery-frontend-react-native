@@ -6,7 +6,7 @@ import { colors } from "../../utils/constants";
 import Bell from "../../assets/bell";
 import { useDispatch, useSelector } from "react-redux";
 
-const HomeScreenHeader = ({ logout }) => {
+const HomeScreenHeader = ({ logout, userDetails }) => {
   //dispatches
   const dispatch = useDispatch();
   const logoutDispatch = () => dispatch(logout());
@@ -20,7 +20,7 @@ const HomeScreenHeader = ({ logout }) => {
           style={{ width: 60, height: 60, borderRadius: "50%" }}
         />
         <View>
-          <Text style={styles.helloText}>Hello, Rahul</Text>
+          <Text style={styles.helloText}>{`Hello, ${userDetails.name}`}</Text>
           <Text style={styles.helloSubHeading}>
             What do you want to eat today?
           </Text>

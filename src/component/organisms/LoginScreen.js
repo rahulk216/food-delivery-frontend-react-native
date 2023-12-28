@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -7,28 +7,43 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { colors } from "../../utils/constants";
-
-//component
-import InteractionButton from "../atoms/InteractionButton";
-import { loginService } from "../../services/authServices";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../store/slices/authSlice";
 
+//component
+import InteractionButton from "../atoms/InteractionButton";
+
 const LoginScreen = ({ navigation }) => {
-  const [checkBoxSelected, setCheckBoxSelected] = useState(false);
+  //state
+  const [credentials, setCredentials] = useState({
+    username: "",
+    password: "",
+  });
 
   //redux
   const dispatch = useDispatch();
   const loginDispatch = (obj) => dispatch(login({ ...obj }));
 
-  const { isLoading, error, accessToken } = useSelector(
-    (state) => state.loginDetails
-  );
+  const { isLoading, error } = useSelector((state) => state.loginDetails);
+
+  //functions
+  const handleFormChange = (event) => {
+    let data = { ...credentials };
+    data[event.target.name] = event.target.value;
+    setCredentials(data);
+  };
 
   const demologin = async () => {
     loginDispatch({
       username: "mich089",
       password: "123452",
+    });
+  };
+
+  const loginHandler = async () => {
+    loginDispatch({
+      username: credentials.username,
+      password: credentials.password,
     });
   };
 
@@ -41,7 +56,13 @@ const LoginScreen = ({ navigation }) => {
       <View style={styles.loginBox}>
         <View style={styles.inputContainer}>
           <Text style={styles.label}>Username</Text>
-          <TextInput style={styles.input} placeholder="Username" />
+          <TextInput
+            style={styles.input}
+            placeholder="Username"
+            onChangeText={(text) =>
+              setCredentials({ ...credentials, username: text })
+            }
+          />
         </View>
         <View style={styles.inputContainer}>
           <Text style={styles.label}>Password</Text>
@@ -49,12 +70,24 @@ const LoginScreen = ({ navigation }) => {
             secureTextEntry={true}
             style={styles.input}
             placeholder="Password"
+            onChangeText={(text) =>
+              setCredentials({ ...credentials, password: text })
+            }
           />
         </View>
         <InteractionButton
-          title="LOGIN"
+          title="DEMO LOGIN"
           action={() => {
             demologin();
+          }}
+          styleProp1={styles.button}
+          styleProp2={styles.text}
+          loading={isLoading}
+        />
+        <InteractionButton
+          title="LOGIN"
+          action={() => {
+            loginHandler();
           }}
           styleProp1={styles.button}
           styleProp2={styles.text}

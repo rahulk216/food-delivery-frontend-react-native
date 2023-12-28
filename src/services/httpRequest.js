@@ -1,11 +1,12 @@
 import { HTTP_METHOD } from "../utils/constants";
 import axios from "axios";
+import { getUser } from "../utils/utility";
 
 const HTTP_REQUEST = (function httpRequest() {
   axios.defaults.headers.put["Content-Type"] = "application/json";
 
-  function getHeaders() {
-    const authToken = 0; //localStorage.getItem("auth-token");
+  async function getHeaders() {
+    const authToken = await getUser();
     const headers = {
       "Content-Type": "application/json",
     };
@@ -19,7 +20,7 @@ const HTTP_REQUEST = (function httpRequest() {
     const options = {
       url,
       method: HTTP_METHOD.GET,
-      headers: getHeaders(),
+      headers: await getHeaders(),
     };
 
     const { data } = await axios(options);
