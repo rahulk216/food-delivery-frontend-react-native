@@ -3,7 +3,7 @@ import React from "react";
 
 const ProfileScreen = () => {
   return (
-    <View>
+    <View style={styles.profileScreenContainer}>
       <Text>ProfileScreen</Text>
     </View>
   );
@@ -11,4 +11,9 @@ const ProfileScreen = () => {
 
 export default ProfileScreen;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  profileScreenContainer: {
+    flex: 1,
+    backgroundColor: "#fff",
+  },
+});
