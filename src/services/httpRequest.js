@@ -1,4 +1,4 @@
-import { HTTP_METHOD } from "../util/constants";
+import { HTTP_METHOD } from "../utils/constants";
 import axios from "axios";
 
 const HTTP_REQUEST = (function httpRequest() {

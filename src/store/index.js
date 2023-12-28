@@ -1,11 +1,14 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 
-const reducers = combineReducers({});
+// reducers
+import loginDetails from "./slices/authSlice";
+
+const reducers = combineReducers({
+  loginDetails,
+});
 
 const store = configureStore({
-  reducer: {
-    reducers,
-  },
+  reducer: reducers,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: false,
