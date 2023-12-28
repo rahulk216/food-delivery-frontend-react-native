@@ -7,7 +7,6 @@ const SearchBar = ({ navigation }) => {
   return (
     <TouchableOpacity
       onPress={() => {
-        console.log("Test");
         navigation.navigate("Search");
       }}
     >

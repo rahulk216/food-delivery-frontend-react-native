@@ -1,5 +1,6 @@
-import { StyleSheet, Text, View, Pressable } from "react-native";
+import { Text, Pressable, ActivityIndicator } from "react-native";
 import React from "react";
+import Loader from "../../assets/loader";
 
 const InteractionButton = ({
   title,
@@ -11,7 +12,7 @@ const InteractionButton = ({
   return (
     <Pressable style={styleProp1} onPress={() => action()}>
       {loading ? (
-        <Text style={styleProp2}>Loading</Text>
+        <ActivityIndicator size="small" color="#ffffff" />
       ) : (
         <Text style={styleProp2}>{title}</Text>
       )}
@@ -20,5 +21,3 @@ const InteractionButton = ({
 };
 
 export default InteractionButton;
-
-const styles = StyleSheet.create({});

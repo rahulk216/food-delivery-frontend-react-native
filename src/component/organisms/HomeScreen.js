@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 
 //home screen components
 import HomeScreenHeader from "../molecules/HomeScreenHeader";
@@ -10,10 +10,15 @@ import ProductsSection from "../molecules/ProductsSection";
 
 import { logout } from "../../store/slices/authSlice";
 
+//redux
+import { useSelector } from "react-redux";
+
 const HomeScreen = ({ navigation }) => {
+  const { userDetails } = useSelector((state) => state.loginDetails);
+
   return (
     <View style={styles.homeScreenContainer}>
-      <HomeScreenHeader logout={logout} />
+      <HomeScreenHeader logout={logout} userDetails={userDetails} />
       <SearchBar navigation={navigation} />
       <OfferCarousel />
       <CategorySection />

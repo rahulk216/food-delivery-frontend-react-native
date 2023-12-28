@@ -4,7 +4,6 @@ import { colors } from "../../utils/constants";
 import RatingStar from "./RatingStar";
 
 const MenuItem = ({ item }) => {
-  console.log("Test");
   return (
     <View style={styles.menuItemContainer}>
       <Image
