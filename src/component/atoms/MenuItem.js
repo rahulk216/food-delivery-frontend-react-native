@@ -7,7 +7,7 @@ const MenuItem = ({ item }) => {
   return (
     <View style={styles.menuItemContainer}>
       <Image
-        source={{ uri: item.img }}
+        source={{ uri: require("../../assets/tempAssets/drawer-pics/1.jpg") }}
         style={{
           width: 140,
           height: 80,
@@ -15,12 +15,12 @@ const MenuItem = ({ item }) => {
         }}
       />
       <View>
-        <Text style={styles.menuName}>{item.name}</Text>
+        <Text style={styles.menuName}>{item?.menu_name}</Text>
         <Text style={styles.menuDesc} numberOfLines={2} ellipsizeMode="tail">
-          {item.description}
+          {item?.menu_description}
         </Text>
         <View style={styles.menuBottomSection}>
-          <RatingStar rating={item.rating} />
+          <RatingStar rating={item?.menu_rating} />
           <Pressable style={styles.addToCardIcon}>
             <Text style={styles.addToCardIconText}>Add</Text>
           </Pressable>

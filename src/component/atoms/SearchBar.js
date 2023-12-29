@@ -3,18 +3,19 @@ import React from "react";
 import { colors } from "../../utils/constants";
 import Search from "../../assets/search";
 
-const SearchBar = ({ navigation }) => {
+const SearchBar = ({ action, onChange }) => {
   return (
     <TouchableOpacity
       onPress={() => {
-        navigation.navigate("Search");
+        action();
       }}
     >
       <View style={styles.searchBarContainer}>
         <Search style={styles.icon} />
         <TextInput
           style={styles.searchBarInput}
-          placeholder="    What would you like to eat?"
+          placeholder="What would you like to eat?"
+          onChangeText={(text) => onChange(text)}
         />
       </View>
     </TouchableOpacity>
