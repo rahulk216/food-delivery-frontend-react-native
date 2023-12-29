@@ -1,21 +1,57 @@
-import { StyleSheet, View, Switch } from "react-native";
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
+import { FlatList, StyleSheet, View } from "react-native";
+import { useSelector } from "react-redux";
 
 //components
+import MenuItem from "../atoms/MenuItem";
 import SearchBar from "../atoms/SearchBar";
 import SwitchComponent from "../atoms/SwitchComponent";
 
 const SearchScreen = () => {
+  const [searchText, setSearchText] = useState("");
   const [isVeg, setIsVeg] = useState(false);
+  const {
+    menuList,
+    isLoading: menuListIsLoading,
+    error: menuListError,
+  } = useSelector((state) => state.menuDetails);
+
+  const [filteredMenu, setFilteredMenu] = useState(menuList);
+
+  useEffect(() => {
+    let filteredMenu = menuList;
+
+    if (isVeg) {
+      filteredMenu = filteredMenu.filter((menu) => menu.isVeg);
+    }
+
+    if (searchText) {
+      filteredMenu = filteredMenu.filter((item) =>
+        item.menu_name.toLowerCase().includes(searchText.toLowerCase())
+      );
+    }
+
+    setFilteredMenu(filteredMenu);
+  }, [isVeg, searchText, menuList]);
+
   return (
     <View style={styles.SearchScreenContainer}>
-      <SearchBar />
+      <SearchBar action={() => {}} onChange={(val) => setSearchText(val)} />
       <SwitchComponent
         text1="Both"
         text2="Veg"
         value={isVeg}
         action={() => setIsVeg(!isVeg)}
       />
+      <View style={styles.productListContainer}>
+        <FlatList
+          data={filteredMenu}
+          renderItem={({ item }) => <MenuItem item={item} />}
+          showsVerticalScrollIndicator={false}
+          keyExtractor={(item) => item.id}
+          style={styles.productlist}
+        />
+      </View>
     </View>
   );
 };
@@ -27,5 +63,10 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     padding: 20,
+  },
+  productListContainer: {
+    flex: 1,
+    marginBottom: 40,
+    //height: 500,
   },
 });

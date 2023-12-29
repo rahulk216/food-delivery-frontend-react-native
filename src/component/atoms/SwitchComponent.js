@@ -4,7 +4,7 @@ import React from "react";
 const SwitchComponent = ({ text1, text2, value, action }) => {
   return (
     <View style={styles.switchContainer}>
-      <Text>{text1}</Text>
+      <Text style={{ fontWeight: "bold" }}>{text1}</Text>
       <Switch
         trackColor={{ false: "#ffb09c", true: "#5DBB63" }}
         thumbColor={value ? "#3CB043" : "#ee2400"}
@@ -12,7 +12,7 @@ const SwitchComponent = ({ text1, text2, value, action }) => {
         onValueChange={action}
         style={styles.switch}
       />
-      <Text>{text2}</Text>
+      <Text style={{ fontWeight: "bold" }}>{text2}</Text>
     </View>
   );
 };

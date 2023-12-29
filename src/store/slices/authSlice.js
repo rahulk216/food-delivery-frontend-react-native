@@ -5,7 +5,6 @@ import {
 } from "../../services/authServices";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { setUser, getUser } from "../../utils/utility";
-import { validate } from "react-native-web/dist/cjs/exports/StyleSheet/validate";
 
 const initialState = {
   isLoading: false,
@@ -39,12 +38,6 @@ export const validateToken = createAsyncThunk("validatetoken", async () => {
     }));
   return { result, userDetails };
 });
-
-// export const getUserDetails = createAsyncThunk("getuserdetails", async () => {
-//   const response = await getUserDetailsService({
-//     token: response.accessToken,
-//   });
-// });
 
 const loginSlice = createSlice({
   name: "login",

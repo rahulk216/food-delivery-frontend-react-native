@@ -1,8 +1,8 @@
 import {
-  signInUrl,
+  BASE_URL,
   //signUpUrl,
   getUserUrl,
-  BASE_URL,
+  signInUrl,
 } from "../utils/urlStrings";
 import HTTP_REQUEST from "./httpRequest";
 
@@ -14,7 +14,8 @@ export const loginService = async ({ username, password }) => {
 };
 
 export const getUserDetailsService = async ({ token }) => {
-  const url = `${BASE_URL}${getUserUrl}/${token}`;
-  const response = await HTTP_REQUEST.GET(url);
-  return response;
+  const url = `${BASE_URL}${getUserUrl}`;
+  const payload = { token };
+  const { data } = await HTTP_REQUEST.POST(url, payload);
+  return data;
 };

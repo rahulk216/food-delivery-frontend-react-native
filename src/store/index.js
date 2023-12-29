@@ -1,10 +1,12 @@
-import { configureStore, combineReducers } from "@reduxjs/toolkit";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
 
 // reducers
 import loginDetails from "./slices/authSlice";
+import menuDetails from "./slices/menuSlice";
 
 const reducers = combineReducers({
   loginDetails,
+  menuDetails,
 });
 
 const store = configureStore({
