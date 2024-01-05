@@ -1,16 +1,36 @@
-import { StyleSheet, Text, View, Image, Pressable } from "react-native";
-import React from "react";
+import {
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  Animated,
+} from "react-native";
 import { colors } from "../../utils/constants";
 import RatingStar from "./RatingStar";
 
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../store/slices/cartSlice";
+import img from "../../assets/tempAssets/drawer-pics/2.jpg";
+
 const MenuItem = ({ item }) => {
+  //dispatch
+  const dispatch = useDispatch();
+  const addToCartDispatch = (obj, operation = null) =>
+    dispatch(addToCart({ ...obj }, operation));
+
+  //functions
+  const handleAddToCart = (obj) => {
+    addToCartDispatch(obj, null);
+  };
+
   return (
     <View style={styles.menuItemContainer}>
-      <Image
-        source={{ uri: require("../../assets/tempAssets/drawer-pics/1.jpg") }}
+      <Animated.Image
+        source={img}
         style={{
           width: 140,
-          height: 80,
+          height: 90,
           borderRadius: 10,
         }}
       />
@@ -21,9 +41,12 @@ const MenuItem = ({ item }) => {
         </Text>
         <View style={styles.menuBottomSection}>
           <RatingStar rating={item?.menu_rating} />
-          <Pressable style={styles.addToCardIcon}>
+          <TouchableOpacity
+            style={styles.addToCardIcon}
+            onPress={() => handleAddToCart({ ...item, qty: 1 })}
+          >
             <Text style={styles.addToCardIconText}>Add</Text>
-          </Pressable>
+          </TouchableOpacity>
         </View>
       </View>
     </View>
@@ -34,16 +57,15 @@ export default MenuItem;
 
 const styles = StyleSheet.create({
   menuItemContainer: {
-    flex: 1,
     flexDirection: "row",
     alignItems: "center",
-    gap: 20,
+    gap: 10,
     marginBottom: 20,
     borderLeftWidth: 2,
     borderRightWidth: 2,
     borderTopWidth: 2,
     borderBottomWidth: 2,
-    borderColor: colors.PRIMARY,
+    borderColor: colors.BORDER,
     borderRadius: 10,
     padding: 5,
   },
@@ -57,9 +79,7 @@ const styles = StyleSheet.create({
     color: "#8F8F8F",
   },
   menuBottomSection: {
-    flex: 1,
     flexDirection: "row",
-    justifyContent: "space-between",
     alignItems: "center",
     width: "100%",
   },

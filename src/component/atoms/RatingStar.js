@@ -20,7 +20,6 @@ export default RatingStar;
 
 const styles = StyleSheet.create({
   ratingContainer: {
-    flex: 1,
     flexDirection: "row",
   },
 });

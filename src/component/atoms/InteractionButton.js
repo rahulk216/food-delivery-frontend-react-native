@@ -1,4 +1,4 @@
-import { Text, Pressable, ActivityIndicator } from "react-native";
+import { Text, TouchableOpacity, ActivityIndicator } from "react-native";
 import React from "react";
 import Loader from "../../assets/loader";
 
@@ -7,16 +7,16 @@ const InteractionButton = ({
   action,
   styleProp1,
   styleProp2,
-  loading,
+  loading = false,
 }) => {
   return (
-    <Pressable style={styleProp1} onPress={() => action()}>
+    <TouchableOpacity style={styleProp1} onPress={() => action()}>
       {loading ? (
         <ActivityIndicator size="small" color="#ffffff" />
       ) : (
         <Text style={styleProp2}>{title}</Text>
       )}
-    </Pressable>
+    </TouchableOpacity>
   );
 };
 

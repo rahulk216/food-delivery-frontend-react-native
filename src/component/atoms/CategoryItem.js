@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image } from "react-native";
+import { StyleSheet, Text, View, Image, Animated } from "react-native";
 import React from "react";
 
 const Item = ({ item }) => {
@@ -11,7 +11,7 @@ const Item = ({ item }) => {
         alignItems: "center",
       }}
     >
-      <Image
+      <Animated.Image
         source={item.img}
         style={{
           flex: 1,

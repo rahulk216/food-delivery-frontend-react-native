@@ -1,15 +1,35 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { persistStore, persistReducer } from "redux-persist";
 
 // reducers
 import loginDetails from "./slices/authSlice";
 import menuDetails from "./slices/menuSlice";
+//persist
+import cartDetails from "./slices/cartSlice";
+
+const persistConfig = {
+  key: "root",
+  storage: AsyncStorage,
+};
+
+const cartDetail = persistReducer(persistConfig, cartDetails);
+
+export const persistedStore = configureStore({
+  reducer: cartDetails,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
+});
 
 const reducers = combineReducers({
   loginDetails,
   menuDetails,
+  cartDetail,
 });
 
-const store = configureStore({
+export const store = configureStore({
   reducer: reducers,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
@@ -19,5 +39,5 @@ const store = configureStore({
 
 const getStore = () => store.getState();
 
-export default store;
+export const persistor = persistStore(store);
 export { getStore };

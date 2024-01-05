@@ -38,7 +38,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     width: "100%",
     color: colors.SECONDARY_TEXT,
-    outlineColor: colors.LIGHT_GREY,
     shadowColor: colors.LIGHT_GREY,
   },
 });
