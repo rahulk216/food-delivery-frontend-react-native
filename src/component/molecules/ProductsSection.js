@@ -23,7 +23,7 @@ const ProductsSection = ({ topProducts }) => {
 export default ProductsSection;
 
 const styles = StyleSheet.create({
-  menuItemContainer: { marginTop: 20, marginBottom: 100 },
+  menuItemContainer: { marginTop: 20, marginBottom: 60 },
   productSectionHeading: { fontSize: 16, fontWeight: "bold" },
   productsSectionContainer: {
     marginVertical: 10,

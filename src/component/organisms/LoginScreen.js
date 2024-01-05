@@ -35,8 +35,8 @@ const LoginScreen = ({ navigation }) => {
 
   const demologin = async () => {
     loginDispatch({
-      username: "mich089",
-      password: "123452",
+      username: "rahul089",
+      password: "12345",
     });
   };
 
@@ -100,7 +100,7 @@ const LoginScreen = ({ navigation }) => {
           style={styles.goToRegister}
           onPress={() => navigation.navigate("Register")}
         >
-          Register
+          <Text>Register</Text>
         </TouchableOpacity>
       </Text>
     </View>

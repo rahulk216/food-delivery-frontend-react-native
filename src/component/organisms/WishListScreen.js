@@ -15,5 +15,7 @@ const styles = StyleSheet.create({
   wishListScreenContainer: {
     flex: 1,
     backgroundColor: "#fff",
+    paddingVertical: 40,
+    paddingHorizontal: 20,
   },
 });

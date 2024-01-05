@@ -23,7 +23,6 @@ const styles = StyleSheet.create({
   switchContainer: {
     flexDirection: "row",
     gap: 10,
-
     alignItems: "center",
     marginVertical: 20,
   },

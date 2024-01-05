@@ -14,9 +14,13 @@ import WishList from "../assets/bottomNavbarAssets/WishList";
 import SearchScreen from "../component/organisms/SearchScreen";
 import { View, StyleSheet } from "react-native";
 
+//redux
+import { useSelector } from "react-redux";
+
 const BottomTab = createBottomTabNavigator();
 
 const TabRoutes = () => {
+  const { items } = useSelector((state) => state.cartDetail);
   return (
     <BottomTab.Navigator
       tabBar={(tabsProps) => (
@@ -31,7 +35,7 @@ const TabRoutes = () => {
           bottom: 0,
           backgroundColor: colors.PRIMARY,
           color: "#fff",
-          height: 60,
+          height: 80,
           ...styles.shadow,
         },
         headerShown: false,
@@ -42,7 +46,10 @@ const TabRoutes = () => {
         name="Cart"
         options={{
           tabBarIcon: ({}) => (
-            <View>
+            <View style={styles.cartIconContainer}>
+              {items.length > 0 && (
+                <View style={styles.cartFilledIndicator}></View>
+              )}
               <Cart />
             </View>
           ),
@@ -108,6 +115,21 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.75,
     shadowRadius: 3,
     elevation: 5,
+  },
+  cartIconContainer: {
+    position: "relative",
+    elevation: 5,
+  },
+  cartFilledIndicator: {
+    position: "absolute",
+    height: 10,
+    backgroundColor: "red",
+    width: 10,
+    borderRadius: 50,
+    right: 0,
+    bottom: 17,
+    left: 17,
+    elevation: 10,
   },
 });
 

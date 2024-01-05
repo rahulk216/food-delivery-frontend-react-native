@@ -4,7 +4,6 @@ import {
   Text,
   View,
   TextInput,
-  CheckBox,
   TouchableOpacity,
 } from "react-native";
 import InteractionButton from "../atoms/InteractionButton";
@@ -39,11 +38,6 @@ const RegisterScreen = ({ navigation }) => {
         </View>
         <View style={styles.rememberSection}>
           <View style={styles.rememberMeContainer}>
-            <CheckBox
-              value={checkBoxSelected}
-              onValueChange={() => setCheckBoxSelected(!checkBoxSelected)}
-              style={styles.checkbox}
-            />
             <Text style={styles.rememberMeText}>Remember Me</Text>
           </View>
           <Text>Forgot Password?</Text>
@@ -56,12 +50,9 @@ const RegisterScreen = ({ navigation }) => {
         />
       </View>
       <Text style={styles.accountExists}>
-        Already have an account?{" "}
-        <TouchableOpacity
-          style={styles.goToRegister}
-          onPress={() => navigation.navigate("Login")}
-        >
-          Login
+        <Text>Already have an account? </Text>
+        <TouchableOpacity onPress={() => navigation.navigate("Login")}>
+          <Text style={styles.goToRegister}>Login</Text>
         </TouchableOpacity>
       </Text>
     </View>
@@ -122,7 +113,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 32,
     borderRadius: 4,
     elevation: 3,
-    backgroundColor: "#F08732",
+    backgroundColor: colors.PRIMARY,
     marginTop: 30,
     borderRadius: 10,
   },
@@ -132,9 +123,11 @@ const styles = StyleSheet.create({
   },
   accountExists: {
     marginTop: 20,
+    flexDirection: "row",
+    alignItems: "center",
   },
   goToRegister: {
-    color: "#F08732",
+    color: colors.PRIMARY,
   },
   rememberMeContainer: {
     flex: 1,
