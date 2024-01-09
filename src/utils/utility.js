@@ -10,7 +10,7 @@ export const setUser = async ({ accessToken }) => {
   return response;
 };
 
-export const calculateTotalPrice = (arr, discount) => {
+export const calculateTotalPrice = (arr, discount = 0) => {
   let sum = arr.reduce((acc, val) => acc + Number(val.menu_price) * val.qty, 0);
   let discountValue = 0;
   if (discount) {

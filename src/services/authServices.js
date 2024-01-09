@@ -3,6 +3,7 @@ import {
   //signUpUrl,
   getUserUrl,
   signInUrl,
+  addAddressUrl,
 } from "../utils/urlStrings";
 import HTTP_REQUEST from "./httpRequest";
 
@@ -17,5 +18,12 @@ export const getUserDetailsService = async ({ token }) => {
   const url = `${BASE_URL}${getUserUrl}`;
   const payload = { token };
   const { data } = await HTTP_REQUEST.POST(url, payload);
+  return data;
+};
+
+export const addAddressService = async (body) => {
+  const url = `${BASE_URL}${addAddressUrl}`;
+  console.log("test", body);
+  const { data } = await HTTP_REQUEST.POST(url, body);
   return data;
 };

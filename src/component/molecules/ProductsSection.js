@@ -10,7 +10,6 @@ const ProductsSection = ({ topProducts }) => {
         <FlatList
           data={topProducts}
           renderItem={({ item }) => <MenuItem item={item} />}
-          showsVerticallScrollIndicator={false}
           keyExtractor={(item) => item.id}
           style={styles.productList}
           showsVerticalScrollIndicator={false}

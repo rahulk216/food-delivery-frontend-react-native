@@ -5,6 +5,7 @@ import { persistStore, persistReducer } from "redux-persist";
 // reducers
 import loginDetails from "./slices/authSlice";
 import menuDetails from "./slices/menuSlice";
+import orderDetails from "./slices/orderSlice";
 //persist
 import cartDetails from "./slices/cartSlice";
 
@@ -27,6 +28,7 @@ const reducers = combineReducers({
   loginDetails,
   menuDetails,
   cartDetail,
+  orderDetails,
 });
 
 export const store = configureStore({
