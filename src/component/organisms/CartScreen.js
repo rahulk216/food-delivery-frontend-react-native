@@ -9,12 +9,12 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 
-import { clearCart } from "../../store/slices/cartSlice";
+import { clearCart, addDiscount } from "../../store/slices/cartSlice";
+import { setOrder } from "../../store/slices/orderSlice";
 import { useSelector, useDispatch } from "react-redux";
 
 import CartItem from "../atoms/CartItem";
 import { colors } from "../../utils/constants";
-import { calculateTotalPrice } from "../../utils/utility";
 
 const couponData = [
   {
@@ -31,23 +31,30 @@ const couponData = [
   },
 ];
 
-const CartScreen = () => {
+const handleDiscountValue = ({ discountCoupon, addDiscountDispatch }) => {
+  const findDiscount = couponData.find(
+    (coupon) => coupon.id === discountCoupon
+  );
+  if (findDiscount) addDiscountDispatch(findDiscount.discount);
+  else addDiscountDispatch(0);
+};
+
+const handleCheckout = ({ navigation, setOrderDispatch, order }) => {
+  setOrderDispatch(order);
+  navigation.navigate("Checkout");
+};
+
+const CartScreen = ({ navigation }) => {
   const [discountCoupon, setDiscountCoupon] = useState("");
-  const [discount, setDiscount] = useState(0);
 
   const dispatch = useDispatch();
   const clearCartDispatch = () => dispatch(clearCart());
+  const addDiscountDispatch = (obj) => dispatch(addDiscount(obj));
+  const setOrderDispatch = (obj) => dispatch(setOrder(obj));
 
-  const { items } = useSelector((state) => state.cartDetail);
-  const totalPrice = calculateTotalPrice(items, discount);
-
-  const handleDiscountValue = () => {
-    const findDiscount = couponData.find(
-      (coupon) => coupon.id === discountCoupon
-    );
-    if (findDiscount) setDiscount(findDiscount.discount);
-    else setDiscount(0);
-  };
+  const { items, totalPrice, discount } = useSelector(
+    (state) => state.cartDetail
+  );
 
   return (
     <SafeAreaView>
@@ -80,7 +87,12 @@ const CartScreen = () => {
               />
               <TouchableOpacity
                 style={styles.couponButton}
-                onPress={() => handleDiscountValue()}
+                onPress={() =>
+                  handleDiscountValue({
+                    discountCoupon,
+                    addDiscountDispatch,
+                  })
+                }
               >
                 <Text style={{ color: "#fff", fontWeight: "bold" }}>
                   Add Coupon
@@ -115,7 +127,16 @@ const CartScreen = () => {
               </View>
             </View>
 
-            <TouchableOpacity style={styles.totalPriceContainer}>
+            <TouchableOpacity
+              style={styles.totalPriceContainer}
+              onPress={() =>
+                handleCheckout({
+                  navigation,
+                  setOrderDispatch,
+                  order: { items, totalPrice },
+                })
+              }
+            >
               <Text
                 style={{
                   fontSize: 16,

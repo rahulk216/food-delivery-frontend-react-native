@@ -22,7 +22,6 @@ const HTTP_REQUEST = (function httpRequest() {
       method: HTTP_METHOD.GET,
       headers: await getHeaders(),
     };
-
     const { data } = await axios(options);
     return data;
   }
@@ -32,9 +31,8 @@ const HTTP_REQUEST = (function httpRequest() {
       url,
       method: HTTP_METHOD.POST,
       data,
-      headers: getHeaders(),
+      headers: await getHeaders(),
     };
-
     const res = await axios(options);
     return res;
   }

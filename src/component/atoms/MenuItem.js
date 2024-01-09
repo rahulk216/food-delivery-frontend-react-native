@@ -81,7 +81,8 @@ const styles = StyleSheet.create({
   menuBottomSection: {
     flexDirection: "row",
     alignItems: "center",
-    width: "100%",
+    justifyContent: "space-between",
+    paddingRight: 15,
   },
   addToCardIcon: {
     backgroundColor: colors.PRIMARY,

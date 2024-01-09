@@ -69,9 +69,4 @@ const styles = StyleSheet.create({
   bellContainer: {
     alignItems: "center",
   },
-  bellIcon: {
-    borderWidth: 1,
-    borderColor: "#8F8F8F",
-    padding: 5,
-  },
 });

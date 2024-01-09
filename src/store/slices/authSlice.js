@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import {
   loginService,
   getUserDetailsService,
+  addAddressService,
 } from "../../services/authServices";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { setUser, getUser } from "../../utils/utility";
@@ -39,6 +40,17 @@ export const validateToken = createAsyncThunk("validatetoken", async () => {
   return { result, userDetails };
 });
 
+export const addAddress = createAsyncThunk("addaddress", async (address) => {
+  const user = await getUser(); //get current user
+  const result = await addAddressService(address);
+  const userDetails =
+    result &&
+    (await getUserDetailsService({
+      token: user,
+    }));
+  return userDetails;
+});
+
 const loginSlice = createSlice({
   name: "login",
   initialState,
@@ -52,6 +64,18 @@ const loginSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      .addCase(addAddress.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(addAddress.fulfilled, (state, action) => {
+        state.userDetails = action.payload;
+        state.isLoading = false;
+      })
+      .addCase(addAddress.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.error.message;
+      })
       .addCase(validateToken.pending, (state) => {
         state.isLoading = true;
         state.error = null;

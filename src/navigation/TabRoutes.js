@@ -3,7 +3,7 @@ import {
   BottomTabBar,
   createBottomTabNavigator,
 } from "@react-navigation/bottom-tabs";
-import { HomeScreen, ProfileScreen, CartScreen, WishListScreen } from "../";
+import { HomeScreen, ProfileScreen, CartScreen, CheckoutScreen } from "../";
 import { colors } from "../utils/constants";
 
 // icons
@@ -69,18 +69,7 @@ const TabRoutes = () => {
         }}
         component={HomeScreen}
       />
-      <BottomTab.Screen
-        name="Wishlist"
-        options={{
-          tabBarIcon: ({}) => (
-            <View>
-              <WishList />
-            </View>
-          ),
-          headerShown: false,
-        }}
-        component={WishListScreen}
-      />
+
       <BottomTab.Screen
         name="Profile"
         options={{
@@ -101,6 +90,14 @@ const TabRoutes = () => {
         }}
         component={SearchScreen}
       />
+      <BottomTab.Screen
+        name="Checkout"
+        options={{
+          headerShown: false,
+          tabBarButton: () => null,
+        }}
+        component={CheckoutScreen}
+      />
     </BottomTab.Navigator>
   );
 };
@@ -114,7 +111,6 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.75,
     shadowRadius: 3,
-    elevation: 5,
   },
   cartIconContainer: {
     position: "relative",
@@ -130,6 +126,7 @@ const styles = StyleSheet.create({
     bottom: 17,
     left: 17,
     elevation: 10,
+    zIndex: 10,
   },
 });
 

@@ -6,8 +6,8 @@ const Star = (props) => (
     id="Capa_1"
     xmlns="http://www.w3.org/2000/svg"
     xmlnsXlink="http://www.w3.org/1999/xlink"
-    width="20px"
-    height="20px"
+    width="15px"
+    height="15px"
     viewBox="0 0 46.354 46.354"
     xmlSpace="preserve"
     {...props}
