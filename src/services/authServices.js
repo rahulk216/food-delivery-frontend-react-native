@@ -1,6 +1,5 @@
 import {
   BASE_URL,
-  //signUpUrl,
   getUserUrl,
   signInUrl,
   addAddressUrl,
@@ -23,7 +22,6 @@ export const getUserDetailsService = async ({ token }) => {
 
 export const addAddressService = async (body) => {
   const url = `${BASE_URL}${addAddressUrl}`;
-  console.log("test", body);
   const { data } = await HTTP_REQUEST.POST(url, body);
   return data;
 };

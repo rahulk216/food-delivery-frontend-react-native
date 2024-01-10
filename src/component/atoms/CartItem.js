@@ -4,13 +4,14 @@ import React from "react";
 //component
 import CartButton from "./CartButton";
 import { colors } from "../../utils/constants";
-import img from "../../assets/tempAssets/drawer-pics/2.jpg";
 
 const CartItem = ({ item }) => {
   return (
     <View style={styles.cartItemContainer}>
       <Animated.Image
-        source={img}
+        source={{
+          uri: item.menu_img,
+        }}
         style={{
           width: 150,
           height: 90,
@@ -18,7 +19,7 @@ const CartItem = ({ item }) => {
         }}
       />
       <View>
-        <Text style={{ fontSize: 18, fontWeight: "bold" }}>
+        <Text style={{ fontSize: 16, fontWeight: "bold" }}>
           {item.menu_name}
         </Text>
         <Text

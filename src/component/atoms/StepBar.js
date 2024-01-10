@@ -19,17 +19,6 @@ const StepBar = ({ value, setScreen }) => {
       <TouchableOpacity onPress={() => setScreen("placeOrder")}>
         <Text
           style={
-            value === "payment"
-              ? { color: colors.PRIMARY, fontWeight: "bold" }
-              : { color: "#000" }
-          }
-        >
-          PAYMENT
-        </Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => setScreen("placeOrder")}>
-        <Text
-          style={
             value === "placeOrder"
               ? { color: colors.PRIMARY, fontWeight: "bold" }
               : { color: "#000" }
