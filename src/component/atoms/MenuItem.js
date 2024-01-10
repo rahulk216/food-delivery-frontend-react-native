@@ -11,9 +11,8 @@ import RatingStar from "./RatingStar";
 
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../store/slices/cartSlice";
-import img from "../../assets/tempAssets/drawer-pics/2.jpg";
 
-const MenuItem = ({ item }) => {
+const MenuItem = ({ item, source }) => {
   //dispatch
   const dispatch = useDispatch();
   const addToCartDispatch = (obj, operation = null) =>
@@ -27,7 +26,9 @@ const MenuItem = ({ item }) => {
   return (
     <View style={styles.menuItemContainer}>
       <Animated.Image
-        source={img}
+        source={{
+          uri: item.menu_img,
+        }}
         style={{
           width: 140,
           height: 90,
@@ -39,15 +40,24 @@ const MenuItem = ({ item }) => {
         <Text style={styles.menuDesc} numberOfLines={2} ellipsizeMode="tail">
           {item?.menu_description}
         </Text>
-        <View style={styles.menuBottomSection}>
-          <RatingStar rating={item?.menu_rating} />
-          <TouchableOpacity
-            style={styles.addToCardIcon}
-            onPress={() => handleAddToCart({ ...item, qty: 1 })}
-          >
-            <Text style={styles.addToCardIconText}>Add</Text>
-          </TouchableOpacity>
-        </View>
+        {source !== "placeorder" ? (
+          <View style={styles.menuBottomSection}>
+            <RatingStar rating={item?.menu_rating} />
+            <TouchableOpacity
+              style={styles.addToCardIcon}
+              onPress={() => handleAddToCart({ ...item, qty: 1 })}
+            >
+              <Text style={styles.addToCardIconText}>Add</Text>
+            </TouchableOpacity>
+          </View>
+        ) : (
+          <View>
+            <Text style={{ fontWeight: "bold", color: colors.PRIMARY }}>
+              &#8377;{item.menu_price} x {item.qty} = &#8377;
+              {parseInt(item.menu_price) * item.qty}
+            </Text>
+          </View>
+        )}
       </View>
     </View>
   );
@@ -68,6 +78,7 @@ const styles = StyleSheet.create({
     borderColor: colors.BORDER,
     borderRadius: 10,
     padding: 5,
+    backgroundColor: "#fff",
   },
   menuName: {
     fontSize: 16,

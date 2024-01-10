@@ -35,25 +35,24 @@ export default CartButton;
 
 const styles = StyleSheet.create({
   cartButtonContainer: {
-    flex: 1,
     flexDirection: "row",
     gap: 15,
     alignItems: "center",
   },
   buttonStyle: {
-    backgroundColor: colors.PRIMARY,
-    padding: 5,
-    flex: 1,
     alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 10,
+    borderRadius: 15,
+    borderWidth: 2,
+    borderColor: colors.PRIMARY,
+    height: 30,
+    width: 30,
   },
   buttonText: {
-    color: "#fff",
+    color: colors.PRIMARY,
     fontWeight: "bold",
     fontSize: 20,
   },
   quantity: {
-    fontSize: 20,
+    fontSize: 18,
   },
 });

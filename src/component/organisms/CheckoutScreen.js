@@ -1,42 +1,48 @@
-import { StyleSheet, Text, View, SafeAreaView, FlatList } from "react-native";
-import React, { useState } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  SafeAreaView,
+  FlatList,
+  ScrollView,
+} from "react-native";
+import React, { useState, useEffect } from "react";
 
 import StepBar from "../atoms/StepBar";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { colors } from "../../utils/constants";
 
 //components
 import AddressScreen from "../molecules/AddressScreen";
-
-const PlaceOrderScreen = () => {
-  return (
-    <View>
-      <Text>PlaceOrderScreen</Text>
-    </View>
-  );
-};
+import PlaceOrderScreen from "../molecules/PlaceOrderScreen";
 
 const CheckoutScreen = () => {
   const [screen, setScreen] = useState("address");
+
+  useEffect(() => {
+    setScreen("address");
+  }, []);
 
   const { userDetails, isLoading } = useSelector((state) => state.loginDetails);
 
   return (
     <SafeAreaView>
-      <View style={styles.checkoutScreenContainer}>
-        <StepBar value={screen} setScreen={setScreen} />
-        {screen === "address" ? (
-          <AddressScreen
-            addressList={userDetails?.address}
-            user={userDetails?.id}
-            isLoading={isLoading}
-            setScreen={setScreen}
-          />
-        ) : (
-          <PlaceOrderScreen />
-        )}
-      </View>
+      <ScrollView>
+        <View style={styles.checkoutScreenContainer}>
+          <StepBar value={screen} setScreen={setScreen} />
+          {screen === "address" ? (
+            <AddressScreen
+              addressList={userDetails?.address}
+              user={userDetails?.id}
+              isLoading={isLoading}
+              setScreen={setScreen}
+            />
+          ) : (
+            <PlaceOrderScreen />
+          )}
+        </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };

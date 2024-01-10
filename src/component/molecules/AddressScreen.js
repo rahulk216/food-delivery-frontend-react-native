@@ -16,6 +16,7 @@ import { setOrderAddress } from "../../store/slices/orderSlice";
 import { useDispatch } from "react-redux";
 
 import InteractionButton from "../atoms/InteractionButton";
+import Address from "../atoms/Address";
 
 const AddressItem = ({ item, setSelectedAddress, setOrderAddressDispatch }) => {
   const setOrderAddress = () => {
@@ -53,6 +54,7 @@ const AddressScreen = ({ addressList, user, isLoading, setScreen }) => {
 
   useEffect(() => {
     if (addressList) setSelectedAddress(addressList[0]);
+    setOrderAddressDispatch(selectedAddress);
   }, []);
 
   //functions
@@ -112,17 +114,10 @@ const AddressScreen = ({ addressList, user, isLoading, setScreen }) => {
       ) : (
         <Text style={styles.noAddressContainer}>No Addresses added.</Text>
       )}
-
       <Text style={{ marginVertical: 10, fontWeight: "bold" }}>
         SELECTED ADDRESS:{" "}
       </Text>
-      <View style={styles.currentAddressContainer}>
-        <Text>{selectedAddress?.location}</Text>
-        <Text>
-          {selectedAddress?.city} {selectedAddress?.state}
-        </Text>
-        <Text>{selectedAddress?.pincode}</Text>
-      </View>
+      <Address selectedAddress={selectedAddress} />
       <View style={styles.newAddressContainer}>
         <Text style={{ marginVertical: 10, fontWeight: "bold" }}>
           ADD NEW ADDRESS:
@@ -173,25 +168,19 @@ const AddressScreen = ({ addressList, user, isLoading, setScreen }) => {
             setNewAddress({ ...newAddress, pincode: text })
           }
         />
-        {/* <TouchableOpacity
-          style={styles.addAddressButton}
-          onPress={() => handleAddAddress()}
-        >
-          <Text style={{ color: "#fff" }}>ADD ADDRESS </Text>
-        </TouchableOpacity> */}
         <InteractionButton
           title="ADD ADDRESS"
           action={() => handleAddAddress()}
           styleProp1={styles.addAddressButton}
-          styleProp2={{ color: "#fff" }}
+          styleProp2={{ color: "#fff", fontWeight: "bold" }}
           loading={isLoading}
         />
-        <TouchableOpacity
-          style={{ marginBottom: 10, ...styles.addAddressButton }}
-          onPress={() => setScreen("placeOrder")}
-        >
-          <Text style={{ color: "#fff" }}>GO TO PLACE ORDER </Text>
-        </TouchableOpacity>
+        <InteractionButton
+          title="GO TO PLACE ORDER"
+          action={() => setScreen("placeOrder")}
+          styleProp1={{ marginBottom: 10, ...styles.addAddressButton }}
+          styleProp2={{ color: "#fff", fontWeight: "bold" }}
+        />
       </View>
     </View>
   );
@@ -216,10 +205,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   currentAddressContainer: {
-    borderLeftWidth: 1,
-    borderRightWidth: 1,
-    borderTopWidth: 1,
-    borderBottomWidth: 1,
+    borderWidth: 1,
     borderColor: colors.BORDER,
     padding: 10,
     borderRadius: 10,

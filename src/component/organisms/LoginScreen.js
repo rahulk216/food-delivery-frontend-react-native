@@ -138,10 +138,7 @@ const styles = StyleSheet.create({
   input: {
     justifyContent: "center",
     alignItems: "stretch",
-    borderLeftWidth: 1,
-    borderRightWidth: 1,
-    borderTopWidth: 1,
-    borderBottomWidth: 1,
+    borderWidth: 1,
     borderRadius: 10,
     padding: 20,
     borderColor: "#8F8F8F",

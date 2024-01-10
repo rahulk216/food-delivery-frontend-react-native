@@ -1,5 +1,8 @@
 export const BASE_URL = `https://food-delivery-backend-a92k.onrender.com`;
 
+//http://localhost:3001
+//https://food-delivery-backend-a92k.onrender.com
+
 //auth
 export const signInUrl = "/auth/signin";
 export const signUpUrl = "/auth/signup";
