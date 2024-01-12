@@ -30,9 +30,9 @@ const renderLoader = () => {
   return (
     <Loader
       styleProp={{
-        flex: 1,
         alignitems: "center",
         justifyContent: "center",
+        height: "100%",
       }}
       size="large"
       color={colors.PRIMARY}
@@ -96,6 +96,7 @@ export default HomeScreen;
 const styles = StyleSheet.create({
   homeScreenContainer: {
     backgroundColor: "#fff",
+    height: "100%",
     paddingHorizontal: 20,
   },
   searchContainer: {

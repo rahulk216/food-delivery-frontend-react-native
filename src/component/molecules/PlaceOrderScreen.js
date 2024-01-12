@@ -6,7 +6,7 @@ import {
   FlatList,
   TextInput,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { colors } from "../../utils/constants";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -15,6 +15,14 @@ import MenuItem from "../atoms/MenuItem";
 import Address from "../atoms/Address";
 import InteractionButton from "../atoms/InteractionButton";
 
+//service
+import {
+  addOrder,
+  clearOrder,
+  setOrderId,
+} from "../../store/slices/orderSlice";
+import { clearCart } from "../../store/slices/cartSlice";
+
 const PaymentSelection = ({ paymentOption, setPaymentOption }) => {
   return (
     <View styles={styles.paymentContainer}>
@@ -22,8 +30,8 @@ const PaymentSelection = ({ paymentOption, setPaymentOption }) => {
         SELECT PAYMENT OPTION:
       </Text>
       <View>
-        {["Online", "COD"].map((option) => (
-          <View style={styles.paymentOption}>
+        {["Online", "COD"].map((option, index) => (
+          <View key={index} style={styles.paymentOption}>
             <TouchableOpacity
               style={styles.outer}
               onPress={() => setPaymentOption(option)}
@@ -38,14 +46,46 @@ const PaymentSelection = ({ paymentOption, setPaymentOption }) => {
   );
 };
 
-const PlaceOrderScreen = ({}) => {
+const PlaceOrderScreen = ({ navigation }) => {
   const [paymentOption, setPaymentOption] = useState("COD");
 
+  //dispatch
+  const dispatch = useDispatch();
+  const addOrderDataDispatch = (obj) => dispatch(addOrder({ ...obj }));
+  const clearOrderDispatch = () => dispatch(clearOrder());
+  const clearCartDispatch = () => dispatch(clearCart());
+  const setOrderIdDispatch = (obj) => dispatch(setOrderId({ ...obj }));
+
   //use selectors
-  const { order, payment, address } = useSelector(
+  const { cartOrder, address, error, order } = useSelector(
     (state) => state.orderDetails
   );
+  const { userDetails } = useSelector((state) => state.loginDetails);
 
+  useEffect(() => {
+    setOrderIdDispatch({ id: order?.id });
+  }, [order]);
+
+  const handleCreateNewOrder = async () => {
+    try {
+      const payload = {
+        userId: userDetails.id,
+        order_total: cartOrder?.totalPrice,
+        order_items: JSON.stringify(cartOrder.items),
+        payment_id: null,
+        order_type: paymentOption === "COD" ? "CASH_ON_DELIVERY" : "ONLINE",
+        address: address,
+        delivery_status: "PENDING",
+      };
+      addOrderDataDispatch(payload);
+      if (error) {
+        return;
+      }
+      clearOrderDispatch();
+      clearCartDispatch();
+      navigation.navigate("Order");
+    } catch (error) {}
+  };
   return (
     <View style={styles.placeOrderContainer}>
       <PaymentSelection
@@ -71,7 +111,7 @@ const PlaceOrderScreen = ({}) => {
           ORDER LIST:
         </Text>
         <FlatList
-          data={order?.items}
+          data={cartOrder?.items}
           renderItem={({ item }) => (
             <MenuItem item={item} source="placeorder" />
           )}
@@ -83,13 +123,13 @@ const PlaceOrderScreen = ({}) => {
       <View style={styles.submitContainer}>
         <View>
           <Text style={{ fontWeight: "bold" }}>TOTAL PRICE:</Text>
-          <Text>&#8377; {order.totalPrice}</Text>
+          <Text>&#8377; {cartOrder?.totalPrice}</Text>
         </View>
         <InteractionButton
           title="PLACE ORDER"
           styleProp1={styles.placeOrderButton}
           styleProp2={{ color: "#fff", fontWeight: "bold" }}
-          action={() => {}}
+          action={() => handleCreateNewOrder()}
         />
       </View>
     </View>

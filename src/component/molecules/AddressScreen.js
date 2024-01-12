@@ -53,8 +53,10 @@ const AddressScreen = ({ addressList, user, isLoading, setScreen }) => {
     dispatch(setOrderAddress({ ...obj }));
 
   useEffect(() => {
-    if (addressList) setSelectedAddress(addressList[0]);
-    setOrderAddressDispatch(selectedAddress);
+    if (addressList) {
+      setSelectedAddress(addressList[0]);
+      setOrderAddressDispatch(addressList[0]);
+    }
   }, []);
 
   //functions

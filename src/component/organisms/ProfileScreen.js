@@ -1,10 +1,13 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import React from "react";
 
-const ProfileScreen = () => {
+const ProfileScreen = ({ navigation }) => {
   return (
     <View style={styles.profileScreenContainer}>
       <Text>ProfileScreen</Text>
+      <TouchableOpacity onPress={() => navigation.navigate("Order")}>
+        <Text>GO TO ORDER</Text>
+      </TouchableOpacity>
     </View>
   );
 };

@@ -7,3 +7,4 @@ export { default as HomeScreen } from "./component/organisms/HomeScreen";
 export { default as ProfileScreen } from "./component/organisms/ProfileScreen";
 export { default as CartScreen } from "./component/organisms/CartScreen";
 export { default as CheckoutScreen } from "./component/organisms/CheckoutScreen";
+export { default as OrderScreen } from "./component/organisms/OrderScreen";

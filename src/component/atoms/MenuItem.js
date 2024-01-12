@@ -1,5 +1,4 @@
 import {
-  Image,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -37,6 +36,7 @@ const MenuItem = ({ item, source }) => {
       />
       <View>
         <Text style={styles.menuName}>{item?.menu_name}</Text>
+        <Text>: {item?.restaurant?.restaurant_name}</Text>
         <Text style={styles.menuDesc} numberOfLines={2} ellipsizeMode="tail">
           {item?.menu_description}
         </Text>

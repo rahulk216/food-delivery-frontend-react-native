@@ -17,7 +17,7 @@ import { colors } from "../../utils/constants";
 import AddressScreen from "../molecules/AddressScreen";
 import PlaceOrderScreen from "../molecules/PlaceOrderScreen";
 
-const CheckoutScreen = () => {
+const CheckoutScreen = ({ navigation }) => {
   const [screen, setScreen] = useState("address");
 
   useEffect(() => {
@@ -39,7 +39,7 @@ const CheckoutScreen = () => {
               setScreen={setScreen}
             />
           ) : (
-            <PlaceOrderScreen />
+            <PlaceOrderScreen navigation={navigation} />
           )}
         </View>
       </ScrollView>
