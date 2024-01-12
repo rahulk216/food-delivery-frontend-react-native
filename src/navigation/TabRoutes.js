@@ -3,14 +3,19 @@ import {
   BottomTabBar,
   createBottomTabNavigator,
 } from "@react-navigation/bottom-tabs";
-import { HomeScreen, ProfileScreen, CartScreen, CheckoutScreen } from "../";
+import {
+  HomeScreen,
+  ProfileScreen,
+  CartScreen,
+  CheckoutScreen,
+  OrderScreen,
+} from "../";
 import { colors } from "../utils/constants";
 
 // icons
 import Cart from "../assets/bottomNavbarAssets/Cart";
 import Home from "../assets/bottomNavbarAssets/Home";
 import Profile from "../assets/bottomNavbarAssets/Profile";
-import WishList from "../assets/bottomNavbarAssets/WishList";
 import SearchScreen from "../component/organisms/SearchScreen";
 import { View, StyleSheet } from "react-native";
 
@@ -97,6 +102,14 @@ const TabRoutes = () => {
           tabBarButton: () => null,
         }}
         component={CheckoutScreen}
+      />
+      <BottomTab.Screen
+        name="Order"
+        options={{
+          headerShown: false,
+          tabBarButton: () => null,
+        }}
+        component={OrderScreen}
       />
     </BottomTab.Navigator>
   );

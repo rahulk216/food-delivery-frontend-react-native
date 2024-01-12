@@ -12,3 +12,7 @@ export const addAddressUrl = "/user/address";
 //menu
 export const getAllProductsUrl = "/menu";
 export const getAllRestaurantsUrl = "/menu/restaurant";
+
+//order
+export const addOrderUrl = "/order";
+export const getOrderByIdUrl = (id) => `/order/${id}`;

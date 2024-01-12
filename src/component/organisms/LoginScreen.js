@@ -27,15 +27,9 @@ const LoginScreen = ({ navigation }) => {
   const { isLoading, error } = useSelector((state) => state.loginDetails);
 
   //functions
-  const handleFormChange = (event) => {
-    let data = { ...credentials };
-    data[event.target.name] = event.target.value;
-    setCredentials(data);
-  };
-
   const demologin = async () => {
     loginDispatch({
-      username: "rahul089",
+      username: "mich089",
       password: "12345",
     });
   };
