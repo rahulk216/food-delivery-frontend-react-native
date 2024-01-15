@@ -1,12 +1,14 @@
 import { StyleSheet, Text, View, Image, Animated } from "react-native";
 import React from "react";
 import { colors } from "../../utils/constants";
-import img from "../../assets/tempAssets/drawer-pics/2.jpg";
+
 const RestaurantItem = ({ item }) => {
   return (
     <View style={styles.restaurantItemContainer}>
       <Animated.Image
-        source={img}
+        source={{
+          uri: item.image,
+        }}
         style={{
           width: 150,
           height: 100,

@@ -51,7 +51,7 @@ const OrderScreen = () => {
         renderLoader()
       ) : (
         <View style={styles.orderScreenContainer}>
-          <View style={{ marginBottom: 15 }}>
+          <View style={styles.nameContainer}>
             <Text style={{ fontSize: 16 }}>
               {`Order Number :`}
               <Text style={{ fontWeight: "bold" }}>{` ORDER${order?.id}`}</Text>
@@ -131,5 +131,12 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginVertical: 15,
     padding: 10,
+  },
+  nameContainer: {
+    marginBottom: 15,
+    borderWidth: 1,
+    borderColor: colors.BORDER,
+    padding: 10,
+    borderRadius: 10,
   },
 });
